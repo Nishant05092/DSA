@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -24,7 +23,17 @@ jobs:
           python-version: "3.11"
 
       - name: Generate daily DSA problem
-        run: python scripts/daily_dsa.py
+        run: |
+          echo "Current directory:"
+          pwd
+
+          echo "Repository files:"
+          ls -la
+
+          echo "Scripts:"
+          ls -la scripts
+
+          python scripts/daily_dsa.py
 
       - name: Commit changes
         run: |
