@@ -19,3 +19,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/002_Best_Time_to_Buy_and_Sell_Stock/solution.cpp)
 
+
+## 2026-09-19 — #3 Contains Duplicate
+
+- **Topic:** Array
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/003_Contains_Duplicate/solution.cpp)
+
