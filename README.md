@@ -26,3 +26,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/003_Contains_Duplicate/solution.cpp)
 
+
+## 2026-09-20 — #4 Maximum Subarray
+
+- **Topic:** Array
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/004_Maximum_Subarray/solution.cpp)
+
