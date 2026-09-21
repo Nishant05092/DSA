@@ -33,3 +33,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/004_Maximum_Subarray/solution.cpp)
 
+
+## 2026-09-21 — #5 Product of Array Except Self
+
+- **Topic:** Array
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/005_Product_of_Array_Except_Self/solution.cpp)
+
