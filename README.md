@@ -40,3 +40,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/005_Product_of_Array_Except_Self/solution.cpp)
 
+
+## 2026-09-22 — #6 Maximum Product Subarray
+
+- **Topic:** Array
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/006_Maximum_Product_Subarray/solution.cpp)
+
