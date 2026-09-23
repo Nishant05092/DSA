@@ -47,3 +47,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/006_Maximum_Product_Subarray/solution.cpp)
 
+
+## 2026-09-23 — #7 Move Zeroes
+
+- **Topic:** Array
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/007_Move_Zeroes/solution.cpp)
+
