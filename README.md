@@ -54,3 +54,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/007_Move_Zeroes/solution.cpp)
 
+
+## 2026-09-24 — #8 Majority Element
+
+- **Topic:** Array
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/008_Majority_Element/solution.cpp)
+
