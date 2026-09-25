@@ -61,3 +61,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/008_Majority_Element/solution.cpp)
 
+
+## 2026-09-25 — #9 3Sum
+
+- **Topic:** Two Pointers
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/009_3Sum/solution.cpp)
+
