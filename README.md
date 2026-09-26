@@ -68,3 +68,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/009_3Sum/solution.cpp)
 
+
+## 2026-09-26 — #10 Container With Most Water
+
+- **Topic:** Two Pointers
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/010_Container_With_Most_Water/solution.cpp)
+
