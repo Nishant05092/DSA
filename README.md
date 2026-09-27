@@ -75,3 +75,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/010_Container_With_Most_Water/solution.cpp)
 
+
+## 2026-09-27 — #11 Valid Palindrome
+
+- **Topic:** String
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/011_Valid_Palindrome/solution.cpp)
+
