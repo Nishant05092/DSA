@@ -82,3 +82,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/011_Valid_Palindrome/solution.cpp)
 
+
+## 2026-09-28 — #12 Valid Anagram
+
+- **Topic:** String
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/012_Valid_Anagram/solution.cpp)
+
