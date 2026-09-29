@@ -89,3 +89,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/012_Valid_Anagram/solution.cpp)
 
+
+## 2026-09-29 — #13 Longest Substring Without Repeating Characters
+
+- **Topic:** Sliding Window
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/013_Longest_Substring_Without_Repeating_Characters/solution.cpp)
+
