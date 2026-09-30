@@ -96,3 +96,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/013_Longest_Substring_Without_Repeating_Characters/solution.cpp)
 
+
+## 2026-09-30 — #14 Longest Repeating Character Replacement
+
+- **Topic:** Sliding Window
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/014_Longest_Repeating_Character_Replacement/solution.cpp)
+
