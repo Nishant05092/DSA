@@ -103,3 +103,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/014_Longest_Repeating_Character_Replacement/solution.cpp)
 
+
+## 2026-10-01 — #15 Binary Search
+
+- **Topic:** Binary Search
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/015_Binary_Search/solution.cpp)
+
