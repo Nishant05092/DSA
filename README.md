@@ -110,3 +110,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/015_Binary_Search/solution.cpp)
 
+
+## 2026-10-02 — #16 Search in Rotated Sorted Array
+
+- **Topic:** Binary Search
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/016_Search_in_Rotated_Sorted_Array/solution.cpp)
+
