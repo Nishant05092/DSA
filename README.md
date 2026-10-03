@@ -117,3 +117,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/016_Search_in_Rotated_Sorted_Array/solution.cpp)
 
+
+## 2026-10-03 — #17 Find Minimum in Rotated Sorted Array
+
+- **Topic:** Binary Search
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/017_Find_Minimum_in_Rotated_Sorted_Array/solution.cpp)
+
