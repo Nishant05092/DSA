@@ -124,3 +124,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/017_Find_Minimum_in_Rotated_Sorted_Array/solution.cpp)
 
+
+## 2026-10-04 — #18 Reverse Linked List
+
+- **Topic:** Linked List
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/018_Reverse_Linked_List/solution.cpp)
+
