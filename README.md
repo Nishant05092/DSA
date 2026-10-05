@@ -131,3 +131,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/018_Reverse_Linked_List/solution.cpp)
 
+
+## 2026-10-05 — #19 Merge Two Sorted Lists
+
+- **Topic:** Linked List
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/019_Merge_Two_Sorted_Lists/solution.cpp)
+
