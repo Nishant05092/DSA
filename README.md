@@ -138,3 +138,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/019_Merge_Two_Sorted_Lists/solution.cpp)
 
+
+## 2026-10-06 — #20 Linked List Cycle
+
+- **Topic:** Linked List
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/020_Linked_List_Cycle/solution.cpp)
+
