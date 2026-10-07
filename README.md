@@ -145,3 +145,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/020_Linked_List_Cycle/solution.cpp)
 
+
+## 2026-10-07 — #21 Middle of the Linked List
+
+- **Topic:** Linked List
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/021_Middle_of_the_Linked_List/solution.cpp)
+
