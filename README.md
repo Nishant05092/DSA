@@ -152,3 +152,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/021_Middle_of_the_Linked_List/solution.cpp)
 
+
+## 2026-10-08 — #22 Valid Parentheses
+
+- **Topic:** Stack
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/022_Valid_Parentheses/solution.cpp)
+
