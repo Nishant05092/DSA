@@ -159,3 +159,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/022_Valid_Parentheses/solution.cpp)
 
+
+## 2026-10-09 — #23 Min Stack
+
+- **Topic:** Stack
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/023_Min_Stack/solution.cpp)
+
