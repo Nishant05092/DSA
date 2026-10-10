@@ -166,3 +166,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/023_Min_Stack/solution.cpp)
 
+
+## 2026-10-10 — #24 Daily Temperatures
+
+- **Topic:** Monotonic Stack
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/024_Daily_Temperatures/solution.cpp)
+
