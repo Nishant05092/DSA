@@ -173,3 +173,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/024_Daily_Temperatures/solution.cpp)
 
+
+## 2026-10-11 — #25 Binary Tree Level Order Traversal
+
+- **Topic:** Tree
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/025_Binary_Tree_Level_Order_Traversal/solution.cpp)
+
