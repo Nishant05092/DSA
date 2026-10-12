@@ -180,3 +180,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/025_Binary_Tree_Level_Order_Traversal/solution.cpp)
 
+
+## 2026-10-12 — #26 Maximum Depth of Binary Tree
+
+- **Topic:** Tree
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/026_Maximum_Depth_of_Binary_Tree/solution.cpp)
+
