@@ -187,3 +187,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/026_Maximum_Depth_of_Binary_Tree/solution.cpp)
 
+
+## 2026-10-13 — #27 Invert Binary Tree
+
+- **Topic:** Tree
+- **Difficulty:** Easy
+- **Solution:** [`solution.cpp`](solutions/027_Invert_Binary_Tree/solution.cpp)
+
