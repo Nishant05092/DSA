@@ -194,3 +194,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Easy
 - **Solution:** [`solution.cpp`](solutions/027_Invert_Binary_Tree/solution.cpp)
 
+
+## 2026-10-14 — #28 Lowest Common Ancestor of a Binary Search Tree
+
+- **Topic:** BST
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/028_Lowest_Common_Ancestor_of_a_Binary_Search_Tree/solution.cpp)
+
