@@ -201,3 +201,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/028_Lowest_Common_Ancestor_of_a_Binary_Search_Tree/solution.cpp)
 
+
+## 2026-10-15 — #29 Validate Binary Search Tree
+
+- **Topic:** BST
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/029_Validate_Binary_Search_Tree/solution.cpp)
+
