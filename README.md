@@ -208,3 +208,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/029_Validate_Binary_Search_Tree/solution.cpp)
 
+
+## 2026-10-16 — #30 Kth Smallest Element in a BST
+
+- **Topic:** BST
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/030_Kth_Smallest_Element_in_a_BST/solution.cpp)
+
