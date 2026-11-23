@@ -538,5 +538,545 @@
     "time_complexity": "O(h + k)",
     "space_complexity": "O(h)",
     "interview_tip": "Remember: inorder traversal of a BST produces values in sorted ascending order."
+  },
+  {
+    "id": 31,
+    "title": "Merge Intervals",
+    "topic": "Intervals",
+    "difficulty": "Medium",
+    "problem": "Given an array of intervals where intervals[i] = [start, end], merge all overlapping intervals and return an array of non-overlapping intervals.",
+    "examples": [
+      {
+        "input": "intervals = [[1,3],[2,6],[8,10],[15,18]]",
+        "output": "[[1,6],[8,10],[15,18]]"
+      }
+    ],
+    "approach": "Sort intervals by starting time. Iterate through them and merge the current interval with the last interval in the answer whenever they overlap.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end());\n        vector<vector<int>> ans;\n        for (auto& interval : intervals) {\n            if (ans.empty() || ans.back()[1] < interval[0]) {\n                ans.push_back(interval);\n            } else {\n                ans.back()[1] = max(ans.back()[1], interval[1]);\n            }\n        }\n        return ans;\n    }\n};",
+    "time_complexity": "O(n log n)",
+    "space_complexity": "O(n) excluding sorting space and output",
+    "interview_tip": "Whenever a problem involves overlapping ranges or time intervals, consider sorting by starting time."
+  },
+  {
+    "id": 32,
+    "title": "Insert Interval",
+    "topic": "Intervals",
+    "difficulty": "Medium",
+    "problem": "Given a collection of non-overlapping intervals sorted by starting time and a new interval, insert the new interval and merge if necessary.",
+    "examples": [
+      {
+        "input": "intervals = [[1,3],[6,9]], newInterval = [2,5]",
+        "output": "[[1,5],[6,9]]"
+      }
+    ],
+    "approach": "Add all intervals that end before the new interval. Merge all overlapping intervals with the new interval. Finally, add the remaining intervals.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        vector<vector<int>> ans;\n        int i = 0, n = intervals.size();\n\n        while (i < n && intervals[i][1] < newInterval[0]) {\n            ans.push_back(intervals[i++]);\n        }\n\n        while (i < n && intervals[i][0] <= newInterval[1]) {\n            newInterval[0] = min(newInterval[0], intervals[i][0]);\n            newInterval[1] = max(newInterval[1], intervals[i][1]);\n            i++;\n        }\n\n        ans.push_back(newInterval);\n\n        while (i < n) ans.push_back(intervals[i++]);\n        return ans;\n    }\n};",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(n)",
+    "interview_tip": "Divide interval processing into three phases: before, overlapping, and after."
+  },
+  {
+    "id": 33,
+    "title": "Non-overlapping Intervals",
+    "topic": "Intervals / Greedy",
+    "difficulty": "Medium",
+    "problem": "Given an array of intervals, return the minimum number of intervals you need to remove to make the rest non-overlapping.",
+    "examples": [
+      {
+        "input": "intervals = [[1,2],[2,3],[3,4],[1,3]]",
+        "output": "1"
+      }
+    ],
+    "approach": "Sort intervals by ending time. Greedily select intervals that start at or after the ending time of the previously selected interval. Remove the rest.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int eraseOverlapIntervals(vector<vector<int>>& intervals) {\n        sort(intervals.begin(), intervals.end(),\n             [](const vector<int>& a, const vector<int>& b) {\n                 return a[1] < b[1];\n             });\n\n        int removed = 0;\n        int end = INT_MIN;\n\n        for (auto& interval : intervals) {\n            if (interval[0] < end) {\n                removed++;\n            } else {\n                end = interval[1];\n            }\n        }\n        return removed;\n    }\n};",
+    "time_complexity": "O(n log n)",
+    "space_complexity": "O(1) auxiliary space excluding sorting",
+    "interview_tip": "For interval scheduling problems, sorting by ending time often leads to a greedy solution."
+  },
+  {
+    "id": 34,
+    "title": "Meeting Rooms II",
+    "topic": "Intervals / Heap",
+    "difficulty": "Medium",
+    "problem": "Given an array of meeting time intervals, find the minimum number of conference rooms required.",
+    "examples": [
+      {
+        "input": "intervals = [[0,30],[5,10],[15,20]]",
+        "output": "2"
+      }
+    ],
+    "approach": "Sort meetings by starting time and maintain a min heap of ending times. Remove meetings that have already finished before assigning a room to the next meeting.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int minMeetingRooms(vector<vector<int>>& intervals) {\n        if (intervals.empty()) return 0;\n        sort(intervals.begin(), intervals.end());\n\n        priority_queue<int, vector<int>, greater<int>> pq;\n\n        for (auto& meeting : intervals) {\n            if (!pq.empty() && pq.top() <= meeting[0]) {\n                pq.pop();\n            }\n            pq.push(meeting[1]);\n        }\n        return pq.size();\n    }\n};",
+    "time_complexity": "O(n log n)",
+    "space_complexity": "O(n)",
+    "interview_tip": "A min heap is useful when you need to efficiently track the earliest finishing task or meeting."
+  },
+  {
+    "id": 35,
+    "title": "Top K Frequent Elements",
+    "topic": "Heap / Hashing",
+    "difficulty": "Medium",
+    "problem": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.",
+    "examples": [
+      {
+        "input": "nums = [1,1,1,2,2,3], k = 2",
+        "output": "[1,2]"
+      }
+    ],
+    "approach": "Count frequencies using an unordered_map. Maintain a min heap of size k based on frequency.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> topKFrequent(vector<int>& nums, int k) {\n        unordered_map<int, int> freq;\n        for (int x : nums) freq[x]++;\n\n        using P = pair<int, int>;\n        priority_queue<P, vector<P>, greater<P>> pq;\n\n        for (auto& [num, count] : freq) {\n            pq.push({count, num});\n            if (pq.size() > k) pq.pop();\n        }\n\n        vector<int> ans;\n        while (!pq.empty()) {\n            ans.push_back(pq.top().second);\n            pq.pop();\n        }\n        return ans;\n    }\n};",
+    "time_complexity": "O(n + m log k), where m is the number of distinct elements",
+    "space_complexity": "O(n + k)",
+    "interview_tip": "Top K problems are classic candidates for a frequency map combined with a heap."
+  },
+  {
+    "id": 36,
+    "title": "Group Anagrams",
+    "topic": "String / Hashing",
+    "difficulty": "Medium",
+    "problem": "Given an array of strings, group the anagrams together. You can return the answer in any order.",
+    "examples": [
+      {
+        "input": "strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]",
+        "output": "[[\"eat\",\"tea\",\"ate\"],[\"tan\",\"nat\"],[\"bat\"]]"
+      }
+    ],
+    "approach": "Sort each string to create a common key for all its anagrams. Store strings with the same key in an unordered_map.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<string>> groupAnagrams(vector<string>& strs) {\n        unordered_map<string, vector<string>> mp;\n\n        for (string s : strs) {\n            string key = s;\n            sort(key.begin(), key.end());\n            mp[key].push_back(s);\n        }\n\n        vector<vector<string>> ans;\n        for (auto& entry : mp) {\n            ans.push_back(entry.second);\n        }\n        return ans;\n    }\n};",
+    "time_complexity": "O(n * k log k), where k is the maximum string length",
+    "space_complexity": "O(n * k)",
+    "interview_tip": "Find a canonical representation when different inputs need to be grouped by equivalent properties."
+  },
+  {
+    "id": 37,
+    "title": "Encode and Decode Strings",
+    "topic": "String / Design",
+    "difficulty": "Medium",
+    "problem": "Design an algorithm to encode a list of strings into one string and decode it back into the original list of strings.",
+    "examples": [
+      {
+        "input": "[\"hello\",\"world\"]",
+        "output": "[\"hello\",\"world\"]"
+      }
+    ],
+    "approach": "Prefix each string with its length followed by a delimiter. During decoding, read the length and extract exactly that many characters.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Codec {\npublic:\n    string encode(vector<string>& strs) {\n        string result;\n        for (string& s : strs) {\n            result += to_string(s.size()) + \"#\" + s;\n        }\n        return result;\n    }\n\n    vector<string> decode(string s) {\n        vector<string> result;\n        int i = 0;\n\n        while (i < s.size()) {\n            int j = i;\n            while (s[j] != '#') j++;\n\n            int len = stoi(s.substr(i, j - i));\n            j++;\n            result.push_back(s.substr(j, len));\n            i = j + len;\n        }\n        return result;\n    }\n};",
+    "time_complexity": "O(S), where S is the total number of characters",
+    "space_complexity": "O(S)",
+    "interview_tip": "Length-prefix encoding avoids ambiguity when strings contain delimiters or special characters."
+  },
+  {
+    "id": 38,
+    "title": "Subarray Sum Equals K",
+    "topic": "Prefix Sum / Hashing",
+    "difficulty": "Medium",
+    "problem": "Given an array of integers nums and an integer k, return the total number of continuous subarrays whose sum equals k.",
+    "examples": [
+      {
+        "input": "nums = [1,1,1], k = 2",
+        "output": "2"
+      }
+    ],
+    "approach": "Maintain a running prefix sum. For every position, look for the frequency of prefixSum - k in a hash map.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int subarraySum(vector<int>& nums, int k) {\n        unordered_map<int, int> mp;\n        mp[0] = 1;\n\n        int prefixSum = 0, count = 0;\n\n        for (int x : nums) {\n            prefixSum += x;\n            if (mp.count(prefixSum - k)) {\n                count += mp[prefixSum - k];\n            }\n            mp[prefixSum]++;\n        }\n        return count;\n    }\n};",
+    "time_complexity": "O(n) average",
+    "space_complexity": "O(n)",
+    "interview_tip": "Remember the equation: prefixSum[j] - prefixSum[i] = k. This is a fundamental prefix-sum pattern."
+  },
+  {
+    "id": 39,
+    "title": "Longest Consecutive Sequence",
+    "topic": "Array / Hashing",
+    "difficulty": "Medium",
+    "problem": "Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence. Your algorithm must run in O(n) time.",
+    "examples": [
+      {
+        "input": "nums = [100,4,200,1,3,2]",
+        "output": "4"
+      }
+    ],
+    "approach": "Insert all numbers into an unordered_set. Start counting only when the current number has no predecessor in the set.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        unordered_set<int> st(nums.begin(), nums.end());\n        int ans = 0;\n\n        for (int x : st) {\n            if (x != INT_MIN && st.count(x - 1)) continue;\n\n            int current = x;\n            int length = 1;\n\n            while (current != INT_MAX && st.count(current + 1)) {\n                current++;\n                length++;\n            }\n            ans = max(ans, length);\n        }\n        return ans;\n    }\n};",
+    "time_complexity": "O(n) average",
+    "space_complexity": "O(n)",
+    "interview_tip": "Avoid sorting when the problem explicitly demands O(n). Hash sets can help identify sequence starting points."
+  },
+  {
+    "id": 40,
+    "title": "Set Matrix Zeroes",
+    "topic": "Matrix",
+    "difficulty": "Medium",
+    "problem": "Given an m x n integer matrix, if an element is zero, set its entire row and column to zero. You must do it in place.",
+    "examples": [
+      {
+        "input": "matrix = [[1,1,1],[1,0,1],[1,1,1]]",
+        "output": "[[1,0,1],[0,0,0],[1,0,1]]"
+      }
+    ],
+    "approach": "Use the first row and first column as markers to indicate which rows and columns should be set to zero. Handle their original zero states separately.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    void setZeroes(vector<vector<int>>& matrix) {\n        int m = matrix.size(), n = matrix[0].size();\n        bool firstRow = false, firstCol = false;\n\n        for (int j = 0; j < n; j++)\n            if (matrix[0][j] == 0) firstRow = true;\n\n        for (int i = 0; i < m; i++)\n            if (matrix[i][0] == 0) firstCol = true;\n\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                if (matrix[i][j] == 0) {\n                    matrix[i][0] = 0;\n                    matrix[0][j] = 0;\n                }\n            }\n        }\n\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                if (matrix[i][0] == 0 || matrix[0][j] == 0)\n                    matrix[i][j] = 0;\n            }\n        }\n\n        if (firstRow)\n            for (int j = 0; j < n; j++) matrix[0][j] = 0;\n\n        if (firstCol)\n            for (int i = 0; i < m; i++) matrix[i][0] = 0;\n    }\n};",
+    "time_complexity": "O(m * n)",
+    "space_complexity": "O(1)",
+    "interview_tip": "Matrix problems often have optimized solutions that use the first row and column as auxiliary storage."
+  },
+  {
+    "id": 41,
+    "title": "Spiral Matrix",
+    "topic": "Matrix",
+    "difficulty": "Medium",
+    "problem": "Given an m x n matrix, return all elements of the matrix in spiral order.",
+    "examples": [
+      {
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "output": "[1,2,3,6,9,8,7,4,5]"
+      }
+    ],
+    "approach": "Maintain four boundaries: top, bottom, left, and right. Traverse each boundary in clockwise order and shrink the boundaries after every traversal.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> spiralOrder(vector<vector<int>>& matrix) {\n        vector<int> ans;\n        int top = 0, bottom = matrix.size() - 1;\n        int left = 0, right = matrix[0].size() - 1;\n\n        while (top <= bottom && left <= right) {\n            for (int j = left; j <= right; j++)\n                ans.push_back(matrix[top][j]);\n            top++;\n\n            for (int i = top; i <= bottom; i++)\n                ans.push_back(matrix[i][right]);\n            right--;\n\n            if (top <= bottom) {\n                for (int j = right; j >= left; j--)\n                    ans.push_back(matrix[bottom][j]);\n                bottom--;\n            }\n\n            if (left <= right) {\n                for (int i = bottom; i >= top; i--)\n                    ans.push_back(matrix[i][left]);\n                left++;\n            }\n        }\n        return ans;\n    }\n};",
+    "time_complexity": "O(m * n)",
+    "space_complexity": "O(1) excluding output",
+    "interview_tip": "Carefully update matrix boundaries and check them before traversing the remaining rows or columns."
+  },
+  {
+    "id": 42,
+    "title": "Rotate Image",
+    "topic": "Matrix",
+    "difficulty": "Medium",
+    "problem": "You are given an n x n 2D matrix representing an image. Rotate the image 90 degrees clockwise in place.",
+    "examples": [
+      {
+        "input": "matrix = [[1,2,3],[4,5,6],[7,8,9]]",
+        "output": "[[7,4,1],[8,5,2],[9,6,3]]"
+      }
+    ],
+    "approach": "First transpose the matrix by swapping matrix[i][j] with matrix[j][i]. Then reverse every row.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    void rotate(vector<vector<int>>& matrix) {\n        int n = matrix.size();\n\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                swap(matrix[i][j], matrix[j][i]);\n            }\n        }\n\n        for (int i = 0; i < n; i++) {\n            reverse(matrix[i].begin(), matrix[i].end());\n        }\n    }\n};",
+    "time_complexity": "O(n²)",
+    "space_complexity": "O(1)",
+    "interview_tip": "A 90-degree clockwise rotation can be achieved using transpose followed by reversing each row."
+  },
+  {
+    "id": 43,
+    "title": "Jump Game",
+    "topic": "Greedy",
+    "difficulty": "Medium",
+    "problem": "Given an integer array nums, where each element represents the maximum jump length from that position, determine if you can reach the last index.",
+    "examples": [
+      {
+        "input": "nums = [2,3,1,1,4]",
+        "output": "true"
+      }
+    ],
+    "approach": "Maintain the farthest reachable index. If the current index exceeds the farthest reachable index, return false.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canJump(vector<int>& nums) {\n        int farthest = 0;\n\n        for (int i = 0; i < nums.size(); i++) {\n            if (i > farthest) return false;\n            farthest = max(farthest, i + nums[i]);\n            if (farthest >= nums.size() - 1) return true;\n        }\n        return true;\n    }\n};",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1)",
+    "interview_tip": "Greedy algorithms often work by maintaining the farthest reachable position or the best choice so far."
+  },
+  {
+    "id": 44,
+    "title": "Jump Game II",
+    "topic": "Greedy",
+    "difficulty": "Medium",
+    "problem": "Given an integer array nums, return the minimum number of jumps required to reach the last index. You can assume the last index is always reachable.",
+    "examples": [
+      {
+        "input": "nums = [2,3,1,1,4]",
+        "output": "2"
+      }
+    ],
+    "approach": "Treat the current jump range as a level. Track the farthest index reachable within this range. When reaching the end of the current range, increment the jump count.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int jump(vector<int>& nums) {\n        int jumps = 0, currentEnd = 0, farthest = 0;\n\n        for (int i = 0; i < nums.size() - 1; i++) {\n            farthest = max(farthest, i + nums[i]);\n\n            if (i == currentEnd) {\n                jumps++;\n                currentEnd = farthest;\n            }\n        }\n        return jumps;\n    }\n};",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1)",
+    "interview_tip": "Think of greedy jump ranges as levels of BFS. Each level represents one jump."
+  },
+  {
+    "id": 45,
+    "title": "Coin Change",
+    "topic": "Dynamic Programming",
+    "difficulty": "Medium",
+    "problem": "You are given an integer array coins representing coin denominations and an integer amount. Return the fewest number of coins needed to make up that amount. If it cannot be made, return -1.",
+    "examples": [
+      {
+        "input": "coins = [1,2,5], amount = 11",
+        "output": "3"
+      }
+    ],
+    "approach": "Use bottom-up dynamic programming. Let dp[i] represent the minimum coins needed to make amount i. Try every coin denomination.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n        vector<int> dp(amount + 1, amount + 1);\n        dp[0] = 0;\n\n        for (int i = 1; i <= amount; i++) {\n            for (int coin : coins) {\n                if (coin <= i) {\n                    dp[i] = min(dp[i], dp[i - coin] + 1);\n                }\n            }\n        }\n\n        return dp[amount] > amount ? -1 : dp[amount];\n    }\n};",
+    "time_complexity": "O(amount * n), where n is the number of coin denominations",
+    "space_complexity": "O(amount)",
+    "interview_tip": "Define the DP state clearly before writing transitions. Here dp[i] represents the minimum coins required for amount i."
+  },
+  {
+    "id": 46,
+    "title": "Climbing Stairs",
+    "topic": "Dynamic Programming",
+    "difficulty": "Easy",
+    "problem": "You are climbing a staircase with n steps. You can climb either 1 or 2 steps at a time. Return the number of distinct ways to reach the top.",
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "3"
+      }
+    ],
+    "approach": "Use dynamic programming. The number of ways to reach step n equals the sum of ways to reach n-1 and n-2.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int climbStairs(int n) {\n        if (n <= 2) return n;\n\n        int prev2 = 1, prev1 = 2;\n\n        for (int i = 3; i <= n; i++) {\n            int current = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = current;\n        }\n        return prev1;\n    }\n};",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1)",
+    "interview_tip": "Recognize Fibonacci-style recurrence relations in counting problems."
+  },
+  {
+    "id": 47,
+    "title": "House Robber",
+    "topic": "Dynamic Programming",
+    "difficulty": "Medium",
+    "problem": "You are a professional robber planning to rob houses along a street. You cannot rob two adjacent houses. Return the maximum amount of money you can rob.",
+    "examples": [
+      {
+        "input": "nums = [2,7,9,3,1]",
+        "output": "12"
+      }
+    ],
+    "approach": "At every house, choose between skipping it or robbing it and adding its money to the best result from two houses before.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int rob(vector<int>& nums) {\n        int prev2 = 0, prev1 = 0;\n\n        for (int money : nums) {\n            int current = max(prev1, prev2 + money);\n            prev2 = prev1;\n            prev1 = current;\n        }\n        return prev1;\n    }\n};",
+    "time_complexity": "O(n)",
+    "space_complexity": "O(1)",
+    "interview_tip": "For non-adjacent selection problems, consider the two choices: take the current element or skip it."
+  },
+  {
+    "id": 48,
+    "title": "Unique Paths",
+    "topic": "Dynamic Programming / Matrix",
+    "difficulty": "Medium",
+    "problem": "A robot is located at the top-left corner of an m x n grid. It can move only down or right. Return the number of unique paths to reach the bottom-right corner.",
+    "examples": [
+      {
+        "input": "m = 3, n = 7",
+        "output": "28"
+      }
+    ],
+    "approach": "Use a one-dimensional DP array. The number of paths to a cell equals the paths from the top plus the paths from the left.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int uniquePaths(int m, int n) {\n        vector<int> dp(n, 1);\n\n        for (int i = 1; i < m; i++) {\n            for (int j = 1; j < n; j++) {\n                dp[j] += dp[j - 1];\n            }\n        }\n        return dp[n - 1];\n    }\n};",
+    "time_complexity": "O(m * n)",
+    "space_complexity": "O(n)",
+    "interview_tip": "Grid DP problems often use transitions from the top and left cells."
+  },
+  {
+    "id": 49,
+    "title": "Combination Sum",
+    "topic": "Backtracking",
+    "difficulty": "Medium",
+    "problem": "Given an array of distinct integers candidates and a target integer target, return all unique combinations where the chosen numbers sum to target. You may use the same number unlimited times.",
+    "examples": [
+      {
+        "input": "candidates = [2,3,6,7], target = 7",
+        "output": "[[2,2,3],[7]]"
+      }
+    ],
+    "approach": "Use backtracking. At each index, either choose the current candidate again or move to the next candidate. Stop when the remaining target becomes zero or negative.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n    vector<vector<int>> ans;\n    vector<int> path;\n\n    void solve(int index, vector<int>& candidates, int target) {\n        if (target == 0) {\n            ans.push_back(path);\n            return;\n        }\n\n        if (index == candidates.size() || target < 0) return;\n\n        path.push_back(candidates[index]);\n        solve(index, candidates, target - candidates[index]);\n        path.pop_back();\n\n        solve(index + 1, candidates, target);\n    }\n\npublic:\n    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {\n        ans.clear();\n        path.clear();\n        solve(0, candidates, target);\n        return ans;\n    }\n};",
+    "time_complexity": "Exponential in the worst case",
+    "space_complexity": "O(target / min(candidates)) recursion depth, excluding output",
+    "interview_tip": "In backtracking, distinguish between reusing the current element and moving to the next element."
+  },
+  {
+    "id": 50,
+    "title": "Subsets",
+    "topic": "Backtracking",
+    "difficulty": "Medium",
+    "problem": "Given an integer array nums of unique elements, return all possible subsets, also known as the power set.",
+    "examples": [
+      {
+        "input": "nums = [1,2,3]",
+        "output": "[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]"
+      }
+    ],
+    "approach": "Use backtracking. At every index, make two choices: include the current element or exclude it.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n    vector<vector<int>> ans;\n    vector<int> path;\n\n    void solve(int index, vector<int>& nums) {\n        if (index == nums.size()) {\n            ans.push_back(path);\n            return;\n        }\n\n        path.push_back(nums[index]);\n        solve(index + 1, nums);\n        path.pop_back();\n\n        solve(index + 1, nums);\n    }\n\npublic:\n    vector<vector<int>> subsets(vector<int>& nums) {\n        ans.clear();\n        path.clear();\n        solve(0, nums);\n        return ans;\n    }\n};",
+    "time_complexity": "O(n * 2^n)",
+    "space_complexity": "O(n) auxiliary recursion space, excluding output",
+    "interview_tip": "Subsets are a fundamental include-or-exclude backtracking pattern. An array of n elements has 2^n subsets."
+  },
+  {
+    "id": 51,
+    "title": "Permutations",
+    "topic": "Backtracking",
+    "difficulty": "Medium",
+    "problem": "Given an array nums of distinct integers, return all possible permutations.",
+    "examples": [
+      {
+        "input": "nums = [1,2,3]",
+        "output": "[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]"
+      }
+    ],
+    "approach": "Use backtracking with a visited array. Select an unused element, add it to the current permutation, recursively continue, and backtrack.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n    vector<vector<int>> ans;\n    vector<int> path;\n    vector<bool> used;\n\n    void solve(vector<int>& nums) {\n        if (path.size() == nums.size()) {\n            ans.push_back(path);\n            return;\n        }\n\n        for (int i = 0; i < nums.size(); i++) {\n            if (used[i]) continue;\n\n            used[i] = true;\n            path.push_back(nums[i]);\n\n            solve(nums);\n\n            path.pop_back();\n            used[i] = false;\n        }\n    }\n\npublic:\n    vector<vector<int>> permute(vector<int>& nums) {\n        ans.clear();\n        path.clear();\n        used.assign(nums.size(), false);\n        solve(nums);\n        return ans;\n    }\n};",
+    "time_complexity": "O(n * n!)",
+    "space_complexity": "O(n) auxiliary space excluding output",
+    "interview_tip": "Subsets use include/exclude decisions, while permutations require tracking which elements have already been used."
+  },
+  {
+    "id": 52,
+    "title": "Word Search",
+    "topic": "Backtracking / Matrix",
+    "difficulty": "Medium",
+    "problem": "Given an m x n grid of characters and a string word, return true if the word exists in the grid. Adjacent cells must be horizontally or vertically neighboring, and the same cell cannot be used more than once.",
+    "examples": [
+      {
+        "input": "board = [[A,B,C,E],[S,F,C,S],[A,D,E,E]], word = \"ABCCED\"",
+        "output": "true"
+      }
+    ],
+    "approach": "Try starting DFS from every cell matching the first character. Explore four directions while marking visited cells temporarily. Backtrack after each attempt.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n    int m, n;\n    vector<vector<bool>> visited;\n\n    bool dfs(vector<vector<char>>& board, string& word,\n             int i, int j, int index) {\n        if (index == word.size()) return true;\n\n        if (i < 0 || j < 0 || i >= m || j >= n ||\n            visited[i][j] || board[i][j] != word[index])\n            return false;\n\n        visited[i][j] = true;\n\n        bool found = dfs(board, word, i + 1, j, index + 1) ||\n                     dfs(board, word, i - 1, j, index + 1) ||\n                     dfs(board, word, i, j + 1, index + 1) ||\n                     dfs(board, word, i, j - 1, index + 1);\n\n        visited[i][j] = false;\n        return found;\n    }\n\npublic:\n    bool exist(vector<vector<char>>& board, string word) {\n        m = board.size();\n        n = board[0].size();\n        visited.assign(m, vector<bool>(n, false));\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (dfs(board, word, i, j, 0)) return true;\n            }\n        }\n        return false;\n    }\n};",
+    "time_complexity": "O(m * n * 3^L) for L > 1, as the first move can have four choices and subsequent moves at most three",
+    "space_complexity": "O(m * n + L) including visited storage and recursion",
+    "interview_tip": "Always restore the visited state during backtracking. Forgetting to unmark a cell can cause incorrect results."
+  },
+  {
+    "id": 53,
+    "title": "Number of Islands",
+    "topic": "Graph / DFS / BFS",
+    "difficulty": "Medium",
+    "problem": "Given an m x n grid of '1's representing land and '0's representing water, return the number of islands. An island is surrounded by water and formed by connecting adjacent lands horizontally or vertically.",
+    "examples": [
+      {
+        "input": "grid = [[1,1,0,0],[1,0,0,1],[0,0,1,1]]",
+        "output": "2"
+      }
+    ],
+    "approach": "Traverse every cell. Whenever an unvisited land cell is found, increment the island count and run DFS to mark the entire connected component as visited.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n    int m, n;\n    void dfs(vector<vector<char>>& grid, int i, int j) {\n        if (i < 0 || j < 0 || i >= m || j >= n || grid[i][j] != '1')\n            return;\n\n        grid[i][j] = '0';\n\n        dfs(grid, i + 1, j);\n        dfs(grid, i - 1, j);\n        dfs(grid, i, j + 1);\n        dfs(grid, i, j - 1);\n    }\n\npublic:\n    int numIslands(vector<vector<char>>& grid) {\n        m = grid.size();\n        n = grid[0].size();\n        int count = 0;\n\n        for (int i = 0; i < m; i++) {\n            for (int j = 0; j < n; j++) {\n                if (grid[i][j] == '1') {\n                    count++;\n                    dfs(grid, i, j);\n                }\n            }\n        }\n        return count;\n    }\n};",
+    "time_complexity": "O(m * n)",
+    "space_complexity": "O(m * n) worst-case recursion stack",
+    "interview_tip": "Connected component problems are commonly solved using DFS, BFS, or Disjoint Set Union."
+  },
+  {
+    "id": 54,
+    "title": "Clone Graph",
+    "topic": "Graph / Hashing",
+    "difficulty": "Medium",
+    "problem": "Given a reference to a node in a connected undirected graph, return a deep copy of the graph.",
+    "examples": [
+      {
+        "input": "adjList = [[2,4],[1,3],[2,4],[1,3]]",
+        "output": "A deep copy of the original graph"
+      }
+    ],
+    "approach": "Use DFS and an unordered_map to map each original node to its cloned node. This prevents creating duplicate clones and handles cycles.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Node {\npublic:\n    int val;\n    vector<Node*> neighbors;\n    Node() : val(0) {}\n    Node(int _val) : val(_val) {}\n    Node(int _val, vector<Node*> _neighbors)\n        : val(_val), neighbors(_neighbors) {}\n};\n\nclass Solution {\n    unordered_map<Node*, Node*> mp;\n\npublic:\n    Node* cloneGraph(Node* node) {\n        if (!node) return nullptr;\n        if (mp.count(node)) return mp[node];\n\n        Node* clone = new Node(node->val);\n        mp[node] = clone;\n\n        for (Node* neighbor : node->neighbors) {\n            clone->neighbors.push_back(cloneGraph(neighbor));\n        }\n        return clone;\n    }\n};",
+    "time_complexity": "O(V + E)",
+    "space_complexity": "O(V)",
+    "interview_tip": "When cloning graph structures containing cycles, maintain a mapping of original nodes to cloned nodes."
+  },
+  {
+    "id": 55,
+    "title": "Course Schedule",
+    "topic": "Graph / Topological Sort",
+    "difficulty": "Medium",
+    "problem": "There are numCourses courses labeled from 0 to numCourses - 1. Given prerequisite pairs, determine if it is possible to finish all courses.",
+    "examples": [
+      {
+        "input": "numCourses = 2, prerequisites = [[1,0]]",
+        "output": "true"
+      }
+    ],
+    "approach": "Use Kahn's algorithm for topological sorting. Build a directed graph and calculate indegrees. Process nodes with indegree zero using a queue. If all nodes are processed, there is no cycle.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {\n        vector<vector<int>> adj(numCourses);\n        vector<int> indegree(numCourses, 0);\n\n        for (auto& p : prerequisites) {\n            int course = p[0], prerequisite = p[1];\n            adj[prerequisite].push_back(course);\n            indegree[course]++;\n        }\n\n        queue<int> q;\n        for (int i = 0; i < numCourses; i++) {\n            if (indegree[i] == 0) q.push(i);\n        }\n\n        int processed = 0;\n        while (!q.empty()) {\n            int node = q.front();\n            q.pop();\n            processed++;\n\n            for (int neighbor : adj[node]) {\n                indegree[neighbor]--;\n                if (indegree[neighbor] == 0)\n                    q.push(neighbor);\n            }\n        }\n        return processed == numCourses;\n    }\n};",
+    "time_complexity": "O(V + E)",
+    "space_complexity": "O(V + E)",
+    "interview_tip": "Topological sorting is useful for dependency resolution and detecting cycles in directed graphs."
+  },
+  {
+    "id": 56,
+    "title": "Graph Valid Tree",
+    "topic": "Graph / DFS / DSU",
+    "difficulty": "Medium",
+    "problem": "Given n nodes labeled from 0 to n - 1 and a list of undirected edges, determine whether these edges form a valid tree.",
+    "examples": [
+      {
+        "input": "n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]",
+        "output": "true"
+      }
+    ],
+    "approach": "A valid undirected tree must have exactly n-1 edges and be connected. Check the edge count, then run DFS to verify connectivity.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\n    void dfs(int node, vector<vector<int>>& adj,\n             vector<bool>& visited) {\n        visited[node] = true;\n        for (int neighbor : adj[node]) {\n            if (!visited[neighbor]) {\n                dfs(neighbor, adj, visited);\n            }\n        }\n    }\n\npublic:\n    bool validTree(int n, vector<vector<int>>& edges) {\n        if (edges.size() != n - 1) return false;\n\n        vector<vector<int>> adj(n);\n        for (auto& e : edges) {\n            adj[e[0]].push_back(e[1]);\n            adj[e[1]].push_back(e[0]);\n        }\n\n        vector<bool> visited(n, false);\n        dfs(0, adj, visited);\n\n        for (bool v : visited) {\n            if (!v) return false;\n        }\n        return true;\n    }\n};",
+    "time_complexity": "O(V + E)",
+    "space_complexity": "O(V + E)",
+    "interview_tip": "For an undirected graph, a tree must be both connected and acyclic. Having exactly n-1 edges plus connectivity guarantees both."
+  },
+  {
+    "id": 57,
+    "title": "Network Delay Time",
+    "topic": "Graph / Dijkstra",
+    "difficulty": "Medium",
+    "problem": "You are given a directed weighted graph with n nodes numbered from 1 to n. Find the time it takes for a signal sent from node k to reach all nodes. Return -1 if some nodes cannot be reached.",
+    "examples": [
+      {
+        "input": "times = [[2,1,1],[2,3,1],[3,4,1]], n = 4, k = 2",
+        "output": "2"
+      }
+    ],
+    "approach": "Use Dijkstra's shortest path algorithm with a min heap. Calculate shortest distances from the source to every node and return the maximum distance.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int networkDelayTime(vector<vector<int>>& times, int n, int k) {\n        vector<vector<pair<int, int>>> adj(n + 1);\n\n        for (auto& edge : times) {\n            adj[edge[0]].push_back({edge[1], edge[2]});\n        }\n\n        vector<int> dist(n + 1, INT_MAX);\n        priority_queue<pair<int, int>,\n                       vector<pair<int, int>>,\n                       greater<pair<int, int>>> pq;\n\n        dist[k] = 0;\n        pq.push({0, k});\n\n        while (!pq.empty()) {\n            auto [d, node] = pq.top();\n            pq.pop();\n\n            if (d > dist[node]) continue;\n\n            for (auto [neighbor, weight] : adj[node]) {\n                if (d + weight < dist[neighbor]) {\n                    dist[neighbor] = d + weight;\n                    pq.push({dist[neighbor], neighbor});\n                }\n            }\n        }\n\n        int ans = 0;\n        for (int i = 1; i <= n; i++) {\n            if (dist[i] == INT_MAX) return -1;\n            ans = max(ans, dist[i]);\n        }\n        return ans;\n    }\n};",
+    "time_complexity": "O((V + E) log V)",
+    "space_complexity": "O(V + E)",
+    "interview_tip": "Dijkstra is suitable for shortest paths when edge weights are non-negative. Use Bellman-Ford when negative edges need to be supported."
+  },
+  {
+    "id": 58,
+    "title": "Kth Largest Element in an Array",
+    "topic": "Heap / Quickselect",
+    "difficulty": "Medium",
+    "problem": "Given an integer array nums and an integer k, return the kth largest element in the array. It is the kth largest element in sorted order, not the kth distinct element.",
+    "examples": [
+      {
+        "input": "nums = [3,2,1,5,6,4], k = 2",
+        "output": "5"
+      }
+    ],
+    "approach": "Maintain a min heap of size k. Insert every element and remove the smallest element whenever the heap size exceeds k.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        priority_queue<int, vector<int>, greater<int>> pq;\n\n        for (int x : nums) {\n            pq.push(x);\n            if (pq.size() > k) pq.pop();\n        }\n        return pq.top();\n    }\n};",
+    "time_complexity": "O(n log k)",
+    "space_complexity": "O(k)",
+    "interview_tip": "For Kth largest or smallest problems, a heap of size k is a common solution. Quickselect can achieve average O(n) time."
+  },
+  {
+    "id": 59,
+    "title": "Median of Two Sorted Arrays",
+    "topic": "Binary Search",
+    "difficulty": "Hard",
+    "problem": "Given two sorted arrays nums1 and nums2 of sizes m and n respectively, return the median of the two sorted arrays. The overall runtime complexity should be O(log(m+n)).",
+    "examples": [
+      {
+        "input": "nums1 = [1,3], nums2 = [2]",
+        "output": "2.0"
+      }
+    ],
+    "approach": "Binary search on the smaller array to find a partition such that all elements on the left are smaller than or equal to all elements on the right. Use the partition sizes to calculate the median.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1,\n                                  vector<int>& nums2) {\n        if (nums1.size() > nums2.size())\n            return findMedianSortedArrays(nums2, nums1);\n\n        int m = nums1.size(), n = nums2.size();\n        int low = 0, high = m;\n\n        while (low <= high) {\n            int cut1 = low + (high - low) / 2;\n            int cut2 = (m + n + 1) / 2 - cut1;\n\n            int l1 = cut1 == 0 ? INT_MIN : nums1[cut1 - 1];\n            int l2 = cut2 == 0 ? INT_MIN : nums2[cut2 - 1];\n            int r1 = cut1 == m ? INT_MAX : nums1[cut1];\n            int r2 = cut2 == n ? INT_MAX : nums2[cut2];\n\n            if (l1 <= r2 && l2 <= r1) {\n                if ((m + n) % 2 == 0) {\n                    return ((double)max(l1, l2) + min(r1, r2)) / 2.0;\n                }\n                return max(l1, l2);\n            }\n\n            if (l1 > r2) high = cut1 - 1;\n            else low = cut1 + 1;\n        }\n        return 0.0;\n    }\n};",
+    "time_complexity": "O(log(min(m,n)))",
+    "space_complexity": "O(1)",
+    "interview_tip": "This is an important advanced binary search problem. Focus on understanding the partition conditions rather than memorizing the code."
+  },
+  {
+    "id": 60,
+    "title": "LRU Cache",
+    "topic": "Design / Hashing / Doubly Linked List",
+    "difficulty": "Medium",
+    "problem": "Design a data structure that follows the Least Recently Used (LRU) cache policy. Implement get(key) and put(key, value), both in O(1) average time.",
+    "examples": [
+      {
+        "input": "LRUCache cache = new LRUCache(2); put(1,1); put(2,2); get(1); put(3,3); get(2)",
+        "output": "get(1) = 1, get(2) = -1"
+      }
+    ],
+    "approach": "Use a doubly linked list to maintain usage order and an unordered_map to locate nodes in O(1) average time. The most recently used node stays near the head, and the least recently used node stays near the tail.",
+    "solution": "#include <bits/stdc++.h>\nusing namespace std;\n\nclass LRUCache {\n    int capacity;\n    list<pair<int, int>> cache;\n    unordered_map<int, list<pair<int, int>>::iterator> mp;\n\npublic:\n    LRUCache(int capacity) {\n        this->capacity = capacity;\n    }\n\n    int get(int key) {\n        if (!mp.count(key)) return -1;\n\n        auto it = mp[key];\n        int value = it->second;\n\n        cache.erase(it);\n        cache.push_front({key, value});\n        mp[key] = cache.begin();\n\n        return value;\n    }\n\n    void put(int key, int value) {\n        if (mp.count(key)) {\n            cache.erase(mp[key]);\n        } else if (cache.size() == capacity) {\n            int leastUsedKey = cache.back().first;\n            cache.pop_back();\n            mp.erase(leastUsedKey);\n        }\n\n        cache.push_front({key, value});\n        mp[key] = cache.begin();\n    }\n};",
+    "time_complexity": "O(1) average per get and put",
+    "space_complexity": "O(capacity)",
+    "interview_tip": "LRU Cache is a classic system-design-oriented DSA question. Understand why a hash map alone or a queue alone cannot efficiently implement all required operations."
   }
 ]
