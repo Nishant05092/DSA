@@ -215,3 +215,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/030_Kth_Smallest_Element_in_a_BST/solution.cpp)
 
+
+## 2026-11-24 — #31 Merge Intervals
+
+- **Topic:** Intervals
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/031_Merge_Intervals/solution.cpp)
+
