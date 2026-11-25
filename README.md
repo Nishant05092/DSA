@@ -222,3 +222,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/031_Merge_Intervals/solution.cpp)
 
+
+## 2026-11-25 — #32 Insert Interval
+
+- **Topic:** Intervals
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/032_Insert_Interval/solution.cpp)
+
