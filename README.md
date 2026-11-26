@@ -229,3 +229,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/032_Insert_Interval/solution.cpp)
 
+
+## 2026-11-26 — #33 Non-overlapping Intervals
+
+- **Topic:** Intervals / Greedy
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/033_Non-overlapping_Intervals/solution.cpp)
+
