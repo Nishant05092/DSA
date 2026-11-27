@@ -236,3 +236,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/033_Non-overlapping_Intervals/solution.cpp)
 
+
+## 2026-11-27 — #34 Meeting Rooms II
+
+- **Topic:** Intervals / Heap
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/034_Meeting_Rooms_II/solution.cpp)
+
