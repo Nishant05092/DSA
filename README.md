@@ -243,3 +243,10 @@ Every day, one DSA problem is automatically added...
 - **Difficulty:** Medium
 - **Solution:** [`solution.cpp`](solutions/034_Meeting_Rooms_II/solution.cpp)
 
+
+## 2026-11-28 — #35 Top K Frequent Elements
+
+- **Topic:** Heap / Hashing
+- **Difficulty:** Medium
+- **Solution:** [`solution.cpp`](solutions/035_Top_K_Frequent_Elements/solution.cpp)
+
